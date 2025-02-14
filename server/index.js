@@ -6,7 +6,7 @@ import path from "path"
 
 dotenv.config();
 const corsOption={
-    origin:'*',
+    origin:'https://codecollab-s62f.onrender.com',
     credentials:true
 };
 app.use(cors(corsOption))

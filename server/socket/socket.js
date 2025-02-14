@@ -12,8 +12,8 @@ const io = new Server(server, {
 });
 
 const userMap = {};
-const messages = {}; // Store messages for each room
-const roomTexts = {}; // Store text per room
+const messages = {}; 
+const roomTexts = {}; 
 let languages={};
 let output={};
 let error={};
@@ -29,12 +29,9 @@ const getAllConnectedUsers = (room) => {
 };
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
-
-
 
   socket.on("user", ({ username, roomName }) => {
-    console.log(username, "joined room:", roomName);
+ 
     userMap[socket.id] = username;
     socket.join(roomName);
 
@@ -48,7 +45,7 @@ io.on("connection", (socket) => {
     // Notify others that a new user joined
     socket.to(roomName).emit("user-joined", { username });
 
-    // Send existing messages and text to new user
+    // Send existing things
     socket.emit("load-message", messages[roomName]);
     socket.emit("load-text", roomTexts[roomName]);
     socket.emit("load-language",languages[roomName]);
@@ -61,7 +58,7 @@ io.on("connection", (socket) => {
 
   // Handle text updates (live typing feature)
   socket.on("update-text", (texts) => {
-    const roomName = Array.from(socket.rooms)[1];  // in this roomName you find a array which consisits of two elemenet , first one (0th index) is user id (which is the room id itself) and 1st index elem has the room jisme user join hua h 
+    const roomName = Array.from(socket.rooms)[1];  
     if (!roomName) return;
 
     roomTexts[roomName] = texts;
@@ -70,12 +67,12 @@ io.on("connection", (socket) => {
 
   // Handle message sending
   socket.on("send-message", (newMessage) => {
-    const roomName = Array.from(socket.rooms)[1]; // Get the room the user is in
+    const roomName = Array.from(socket.rooms)[1]; 
     if (!roomName) return;
 
     // Append the new message to the room-specific messages array
     messages[roomName].push(newMessage);
-    console.log(messages);
+  
 
     // Broadcast only the new message
     socket.to(roomName).emit("send-message", newMessage);
@@ -121,16 +118,16 @@ io.on("connection", (socket) => {
       // Check if the room is empty
       setTimeout(() => {
         if (!io.sockets.adapter.rooms.get(roomName)) {
-          console.log(`Room ${roomName} is empty. Resetting text.`);
-          delete roomTexts[roomName]; // Reset text for the room
-          delete messages[roomName]; // Clear messages for the room
+          
+          delete roomTexts[roomName]; 
+          delete messages[roomName]; 
         }
       }, 1000);
     });
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+   
   });
 });
 

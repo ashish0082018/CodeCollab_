@@ -3,7 +3,7 @@ import {  executeCode } from '../api.js';
 import { toast } from 'react-toastify';
 
 function Output({code,language,socket}) {
-  console.log("from output",socket.id);
+
   
   const [output,setOutput]=useState("")
   const [error,setError]=useState("")
