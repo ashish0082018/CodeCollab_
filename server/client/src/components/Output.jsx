@@ -63,7 +63,7 @@ function Output({code,language,socket}) {
     }
   return (
     <> 
-     <div className='bg-zinc-900 md:h-72 h-80 flex flex-grow flex-col p-3 text-zinc-400 border  mt-3 rounded-md '>
+     <div className='bg-zinc-900 md:h-64 h-80 flex flex-grow flex-col p-3 text-zinc-400 border  mt-3 rounded-md '>
      <div className='h-full overflow-auto'>
 
      {output ? <> {output} </>:<>Click "Run Code" to see the output here</>}

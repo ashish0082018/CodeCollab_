@@ -6,6 +6,7 @@ import Editor from "@monaco-editor/react";
 import Output from "./Output";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import LeaveButton from "./Leave";
 const socket = io("https://codecollab-s62f.onrender.com");  
 
 function Main() {
@@ -139,10 +140,7 @@ socket.on("set-language",(lan)=>{
     setMessage("");
   };
 
-  const leaveRoom = () => {
-    socket.disconnect();
-    return navigate("/", { state: null });
-  };
+ 
 
   const handleShare = (roomId) => {
     const roomLink = `https://codecollab-s62f.onrender.com/share/${roomId}`;
@@ -168,15 +166,7 @@ socket.on("set-language",(lan)=>{
       >
         CodeCollab
       </motion.div>
-      <motion.button
-      onClick={leaveRoom}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
-      >
-        Leave
-       
-      </motion.button>
+<LeaveButton/>
     </nav>
       
       <div className="flex items-center gap-5  ">
@@ -185,7 +175,7 @@ socket.on("set-language",(lan)=>{
           <IoMdMenu className="w-10 h-10 " />
         </button>
 {
-  state &&         <div className="text-center p-3 bg-gray-800 rounded-lg shadow-md w-56 md:w-1/3 md:my-3">
+  state &&         <div className="text-center p-2 bg-gray-800 rounded-lg shadow-md w-56 md:w-1/2 md:my-3">
   <p className="text-sm  md:text-xl text-white">
     Hey <span className="text-blue-400 font-bold">{state.username}</span>, welcome to{" "}
     <span className="text-blue-400 font-bold">{roomId}</span>! Let’s code together! 💻✨
@@ -195,7 +185,7 @@ socket.on("set-language",(lan)=>{
 }
 <button
         onClick={toggleSection}
-        className="md:hidden right-4 bg-blue-700 text-white px-4 py-2 rounded-lg z-50"
+        className="md:hidden leading-5 right-4 bg-blue-700 text-white px-4 py-1 rounded-lg z-50"
       >
         {visibleSection === 'chat' ? 'Show Code' : 'Show Chat'}
       </button>
@@ -313,7 +303,7 @@ socket.on("set-language",(lan)=>{
           </select>
 
           <Editor
-            height="400px"
+            height="350px"
             width="100%"
             language={language}
             value={text}

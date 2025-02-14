@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-black text-white">
+    <div className="flex flex-col items-center justify-center h-screen bg-black text-white overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="text-center"
       >
-        <h1 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20">
-        CodeCollab
+        <h1 className="md:text-7xl text-4xl lg:text-9xl font-bold text-center text-white relative z-20">
+          CodeCollab
         </h1>
-        <div className="w-[40rem] h-40 relative">
+        <div className="w-full md:w-[40rem] h-40 relative">
           {/* Gradients */}
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
@@ -27,13 +27,13 @@ const HeroSection = () => {
             background="transparent"
             minSize={0.4}
             maxSize={1}
-            particleDensity={1200}
+            particleDensity={window.innerWidth < 768 ? 800 : 1200} // Adjust density for mobile
             className="w-full h-full"
             particleColor="#FFFFFF"
           />
 
           {/* Radial Gradient to prevent sharp edges */}
-          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)] md:[mask-image:radial-gradient(500px_300px_at_top,transparent_20%,white)]"></div>
         </div>
       </motion.div>
 
@@ -41,7 +41,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="text-xl text-gray-400 mb-8 text-center"
+        className="text-xl text-gray-400 mb-8 text-center px-4"
       >
         A live code editor with real-time collaboration and chat.
       </motion.p>
@@ -59,14 +59,15 @@ const HeroSection = () => {
         transition={{ duration: 0.5, delay: 0.8 }}
         className="flex gap-4"
       >
-           <Link to={"/create"}>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-       Get Started
-        </motion.button></Link>
+        <Link to={"/create"}>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Get Started
+          </motion.button>
+        </Link>
       </motion.div>
     </div>
   );
