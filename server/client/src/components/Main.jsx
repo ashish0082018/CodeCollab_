@@ -25,6 +25,28 @@ function Main() {
   useEffect(() => {
     if (!state) return navigate(`/share/${roomId}`);
   }, []);
+  useEffect(() => {
+    // Disable back button by continuously pushing a state
+    const blockBackNavigation = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    // Add initial state and listen for back navigation
+    blockBackNavigation();
+    window.addEventListener("popstate", blockBackNavigation);
+
+    // Prevent accidental refresh (optional)
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = ""; // Show warning on refresh/exit
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("popstate", blockBackNavigation);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
 
   const [visibleSection, setVisibleSection] = useState('chat'); // State to manage visibility
@@ -169,7 +191,7 @@ socket.on("set-language",(lan)=>{
 <LeaveButton/>
     </nav>
       
-      <div className="flex items-center gap-5  ">
+      <div className="flex items-center gap-5 p-2 ">
         <button onClick={() => setslide(!slide)} className="">
           {" "}
           <IoMdMenu className="w-10 h-10 " />
