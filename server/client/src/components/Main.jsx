@@ -7,6 +7,7 @@ import Output from "./Output";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import LeaveButton from "./Leave";
+import AIPopup from "./Aipopup";
 const socket = io("https://codecollab-s62f.onrender.com");  
 
 function Main() {
@@ -311,6 +312,7 @@ socket.on("set-language",(lan)=>{
       {/* Code Editor Section */}
       <div className={`bg-zinc-800 w-full md:w-3/4 p-2 flex justify-center transition-all duration-300 ${visibleSection === 'code' ? 'block' : 'hidden md:block'}`}>
         <div className="w-full">
+         
           <select
             style={{
               marginBottom: "10px",
@@ -325,8 +327,8 @@ socket.on("set-language",(lan)=>{
           </select>
 
           <Editor
-            height="350px"
-            width="100%"
+            height="350px" 
+            width="100%" 
             language={language}
             value={text}
             onChange={(value) => handleText(value || "")}
@@ -343,10 +345,13 @@ socket.on("set-language",(lan)=>{
               wordBasedSuggestions: true,
             }}
           />
-
+        
+   
           <div>
+       
             <Output code={text} language={language} socket={socket}/>
           </div>
+         <AIPopup code={text} />
         </div>
       </div>
     </div>

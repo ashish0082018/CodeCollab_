@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import HeroSection from "./Landing";
 
+
 export const Navbar = () => {
   return (
     <nav className="flex justify-between items-center p-4 bg-zinc-900 text-white px-8">
@@ -101,6 +102,7 @@ export  const Footer = () => {
 const HomePage = () => {
   return (
     <div className="min-h-screen bg-zinc-900">
+  
       <Navbar />
       <HeroSection />
       

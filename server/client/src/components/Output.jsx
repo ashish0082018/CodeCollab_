@@ -3,8 +3,6 @@ import {  executeCode } from '../api.js';
 import { toast } from 'react-toastify';
 
 function Output({code,language,socket}) {
-
-  
   const [output,setOutput]=useState("")
   const [error,setError]=useState("")
   const [loading,setloading]=useState(false)
@@ -27,9 +25,7 @@ function Output({code,language,socket}) {
       socket.off("load-error");
       socket.off("update-output");
       socket.off("update-error");
-    
     }
-
   },[])
 
 
@@ -52,15 +48,14 @@ function Output({code,language,socket}) {
    const res= await executeCode(language,code)
    setOutput(res.run.output)
    socket.emit("update-output",res.run.output)
-   setError(res.run.stderr)
+   setError(res.run.stderr) 
    socket.emit("update-error",res.run.stderr)
    setloading(false)
-
+  
   } catch (error) {
     console.log(error);
-    
   }
-    }
+  }
   return (
     <> 
      <div className='bg-zinc-900 md:h-64 h-80 flex flex-grow flex-col p-3 text-zinc-400 border  mt-3 rounded-md '>
@@ -74,6 +69,7 @@ function Output({code,language,socket}) {
      <div className='w-10 mt-3'> <button onClick={runCode} className='bg-blue-600 px-2 py-1 rounded-lg font-semibold w-28 text-zinc-100 hover:scale-105 transition-all shadow-lg  '  >  {loading ? <span className="loading loading-spinner loading-xs "></span>:"Run code"} </button></div>
 
     </div>
+
     </>
     
    
