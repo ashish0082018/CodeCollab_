@@ -2,7 +2,7 @@
 
 **CodeCollab** is a live collaborative code editor that lets multiple users code together in real-time, chat instantly, and receive intelligent assistance from an AI bot for error detection. Designed for pair programming, interviews, and team coding sessions.
 
-> **🔗 Live Demo**: 
+> **🔗 Live Demo**: https://codecollab-s62f.onrender.com/
 
 ---
 
